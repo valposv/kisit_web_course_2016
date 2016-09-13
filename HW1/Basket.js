@@ -2,7 +2,7 @@
 var prodcuts = [{
     name: "mouse",
     price: 5,
-    inventory: 20
+    inventory: 1
 }, {
         name: "laptop",
         price: 275,
@@ -47,7 +47,7 @@ var basket = (function () {
             else
                 productLineItems[itemIndex].inventory++;
 
-
+            prodcuts[productId].inventory--;
             return true;
         },
 
@@ -121,6 +121,6 @@ console.log("Removing 2.. " + basket.removeProduct(2));
 console.log("Updating 2 quantity to 1.. " + basket.updateProductQuantity(2, 1));
 console.log("Trying to add unknown id.. " + basket.addProduct(228));
 console.log("Adding 0.. " + basket.addProduct(0));
-console.log("Adding 0.. " + basket.addProduct(0));
-console.log("Total price.. " + basket.getTotalPrice());
+console.log("Trying to add 0 (the item is over).. " + basket.addProduct(0));
+console.log("\nTotal price.. " + basket.getTotalPrice());
 basket.ShowAllInfo();
