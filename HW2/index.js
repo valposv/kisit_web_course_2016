@@ -16,24 +16,17 @@ app.get('/', function (req, res) {
 	});
 });
 io.on('connection', function (socket) {
-	//console.log(socket.request.headers);
+	console.log(socket.request.headers);
 	var basket = new shop.Basket();
 	socket.join("customers");
-
 	socket.on("addProduct", function(data) {
 		basket.addProduct(data.pid);
-
-		socket.emit("productAddedToBasket", {
-			success : true,
-			productName : shop.products[data.pid].name
+		socket.emit("productAdded", {
+			succses : true,
+			basket : basket
 		});
 	});
-
-	// "Слушаем" подтверждение заказа
-	socket.on("placeOrder",function(){
-		var order=basket.placeOrder();
-		merchantIO.to("merchants").emit("orderPlaced",{basket}); // отправляем заказ продавцу
-	})
+	io.to("merchant").emit("orderPlaced")
 });
 
 
@@ -50,13 +43,7 @@ app.get('/merchant', function (req, res) {
 merchantIO.on("connection", function(socket) {
 	
 	io.to("customers").emit("hi");
-	socket.join("merchants");
-
-	socket.on("addNewProduct", function(data) {
-
-		socket.emit("addedNewProduct");
-		io.to("customers").emit("addedNewProduct") // Уведомляем пользователей о новом продукте 
-	});
+	socket.join("merchants")
 });
 
 var server = http.listen(3000);
