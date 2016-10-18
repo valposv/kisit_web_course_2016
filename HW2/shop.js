@@ -60,7 +60,6 @@ class Basket extends ProductlineItemContainer {
 			if(this.productLineItems[i].product.id == productID) {
 				delete this.productLineItems[i];
 				break;
-				break;
 			}
 		}
 		return this;
