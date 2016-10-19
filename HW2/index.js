@@ -25,14 +25,15 @@ io.on('connection', function (socket) {
 
 		socket.emit("productAddedToBasket", {
 			success : true,
-			productName : shop.products[data.pid].name
+			basket : basket
 		});
 	});
 
 	// "Слушаем" подтверждение заказа
 	socket.on("placeOrder",function(){
 		var order=basket.placeOrder();
-		merchantIO.to("merchants").emit("orderPlaced",{basket}); // отправляем заказ продавцу
+		console.log(order);
+		merchantIO.to("merchants").emit("orderPlaced",order); // отправляем заказ продавцу
 	})
 });
 

@@ -12,7 +12,12 @@ socket.on("addedNewProduct", function(){
 	console.log("Added new product");
 });
 
-socket.on("orderPlaced", function(basket){
+socket.on("orderPlaced", function(order){
+	console.log(order);
+	
+	// exception: order.getTotalPrice is not a function
+	$(".orders-container").append("<p>"+order.getTotalPrice()+"</p>");
+
 	// Получили заказ, визуально отобразить в Orders
 	console.log("Order placed");
 });

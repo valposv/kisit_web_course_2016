@@ -39,6 +39,8 @@ class ProductlineItemContainer {
 
 class Order extends ProductlineItemContainer {
 	constructor(basket) {
+		super(); // вызываем конструктор базового класса
+		// иначе 'this' is not defined
 		this.productLineItems = basket.productLineItems;
 	}
 	setStatus(status) {
