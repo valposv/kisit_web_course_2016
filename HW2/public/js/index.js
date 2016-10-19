@@ -20,6 +20,13 @@ socket.on("productAddedToBasket", function(data){
 	console.log(data);
 });
 
+socket.on("orderPlaced", function(order){
+	$('.product-line-items').empty();
+	$('.js_place-order').hide();
+
+	alert('Order placed!\n\n');//+order.getTotalPrice());
+})
+
 socket.on("hi", function(){
 	console.log("Customer is online");
 })

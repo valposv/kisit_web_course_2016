@@ -33,7 +33,11 @@ io.on('connection', function (socket) {
 	socket.on("placeOrder",function(){
 		var order=basket.placeOrder();
 		console.log(order);
+
+		socket.emit("orderPlaced",order);
 		merchantIO.to("merchants").emit("orderPlaced",order); // отправляем заказ продавцу
+
+		basket=new shop.Basket(); // создаем новую корзину для новых заказов
 	})
 });
 
