@@ -16,12 +16,20 @@ app.get('/', function (req, res) {
 	});
 });
 io.on('connection', function (socket) {
-	//console.log(socket.request.headers);
 	var basket = new shop.Basket();
 	socket.join("customers");
 
 	socket.on("addProduct", function(data) {
-		basket.addProduct(data.pid);
+		var productName=data.productName,
+		    id=-1;
+
+		for(var i=0;i<shop.products.length;i++)
+			if(productName==shop.products[i].name)
+				id=i;
+
+		if(id==-1) return;
+
+		basket.addProduct(id);		
 
 		socket.emit("productAddedToBasket", {
 			success : true,
@@ -33,7 +41,7 @@ io.on('connection', function (socket) {
 	socket.on("placeOrder",function(){
 		//var order=basket.placeOrder();
 		//console.log(order);
-		
+
 		basket.placeOrder();
 		var totalPrice=basket.getTotalPrice();
 
@@ -64,6 +72,20 @@ merchantIO.on("connection", function(socket) {
 
 		socket.emit("addedNewProduct");
 		io.to("customers").emit("addedNewProduct") // Уведомляем пользователей о новом продукте 
+	});
+
+	socket.on("removeProduct", function(productName) {
+		var id=-1;
+
+		for(var i=0;i<shop.products.length;i++)
+			if(productName==shop.products[i].name)
+				id=i;
+
+		if(id==-1) return;
+		
+		shop.products.splice(id,1);
+
+		io.to("customers").emit("productRemoved",productName) 
 	});
 });
 

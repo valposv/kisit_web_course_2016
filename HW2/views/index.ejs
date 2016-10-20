@@ -10,7 +10,7 @@
 	<body>
 		<div class="left">
 		<% for(var i = 0; i < products.length; i++) {%>
-			<div class="product-container border">
+			<div class="product-container border" name="<%=products[i].name%>">
 				<h2>
 					<%=products[i].name%>
 				</h2>
@@ -18,7 +18,7 @@
 					<span>Price:</span>
 					<span><%=products[i].price%></span>
 				</div>
-				<button data-product-id="<%=i%>" class="js_add-to-cart">Add to Cart</button>
+				<button productName="<%=products[i].name%>" class="js_add-to-cart">Add to Cart</button>
 			</div>
 		<% } %>
 		</div>

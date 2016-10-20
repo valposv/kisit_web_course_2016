@@ -36,10 +36,15 @@ socket.on("addedNewProduct", function(){
 	console.log("New product is available");
 })
 
+socket.on("productRemoved", function(productName){
+	// Убрать неактуальный контейнер (продукта нету на складе)
+	$('[name='+productName+']').remove();
+})
+
 $(function(){
 	$(".js_add-to-cart").on("click", function(){
 		socket.emit("addProduct", {
-			pid : $(this).data("productId")
+			productName : $(this).attr("productName")
 		});
 	});
 })
@@ -47,7 +52,6 @@ $(function(){
 $(function(){
 	$(".js_place-order").on("click", function(){
 		socket.emit("placeOrder");
-		console.log('Order placed');
 	});
 })
 

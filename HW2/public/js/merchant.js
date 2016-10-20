@@ -5,7 +5,19 @@ $(function(){
 		//$(".product-container border").append( $())
 		socket.emit("addNewProduct");
 	});
-})
+});
+
+$(function(){
+	$(".js_remove-product").on("click", function(){
+		var productName = $(this).parent().parent().attr('name');
+		socket.emit("removeProduct",productName);
+
+		// удалить контейнер с продуктом
+		$(this).parent().parent().remove();
+	});
+});
+
+
 
 socket.on("addedNewProduct", function(){
 	// Добавить контейнер с новым продуктом
@@ -13,11 +25,7 @@ socket.on("addedNewProduct", function(){
 });
 
 socket.on("orderPlaced", function(order){
-	console.log(order);
+	//console.log(order);
 	
-	// exception: order.getTotalPrice is not a function
 	$(".orders-container").append("<p> Total price "+order+"</p>");
-
-	// Получили заказ, визуально отобразить в Orders
-	console.log("Order placed");
 });
