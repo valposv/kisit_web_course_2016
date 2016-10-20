@@ -24,7 +24,7 @@ socket.on("orderPlaced", function(order){
 	$('.product-line-items').empty();
 	$('.js_place-order').hide();
 
-	alert('Order placed!\n\n');//+order.getTotalPrice());
+	alert('Order placed!\n\n Total price: '+order);
 })
 
 socket.on("hi", function(){

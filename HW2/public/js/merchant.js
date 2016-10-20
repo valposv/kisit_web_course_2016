@@ -16,7 +16,7 @@ socket.on("orderPlaced", function(order){
 	console.log(order);
 	
 	// exception: order.getTotalPrice is not a function
-	$(".orders-container").append("<p>"+order.getTotalPrice()+"</p>");
+	$(".orders-container").append("<p> Total price "+order+"</p>");
 
 	// Получили заказ, визуально отобразить в Orders
 	console.log("Order placed");

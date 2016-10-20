@@ -31,11 +31,14 @@ io.on('connection', function (socket) {
 
 	// "Слушаем" подтверждение заказа
 	socket.on("placeOrder",function(){
-		var order=basket.placeOrder();
-		console.log(order);
+		//var order=basket.placeOrder();
+		//console.log(order);
+		
+		basket.placeOrder();
+		var totalPrice=basket.getTotalPrice();
 
-		socket.emit("orderPlaced",order);
-		merchantIO.to("merchants").emit("orderPlaced",order); // отправляем заказ продавцу
+		socket.emit("orderPlaced",totalPrice);
+		merchantIO.to("merchants").emit("orderPlaced",totalPrice); // отправляем заказ продавцу
 
 		basket=new shop.Basket(); // создаем новую корзину для новых заказов
 	})
