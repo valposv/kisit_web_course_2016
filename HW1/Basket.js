@@ -2,11 +2,7 @@ var prodcuts = [{
     name: "mouse",
     price: 5,
     inventory: 1
-<<<<<<< c0026bd07c671574bb78ceea8223d57d11805785
 }, {
-=======
-    }, {
->>>>>>> fixed method defects
         name: "laptop",
         price: 275,
         inventory: 80
@@ -40,15 +36,10 @@ var basket = (function () {
         addProduct: function (productId) {
             if (!(productId in prodcuts) || prodcuts[productId].inventory == 0)
                 return false;
-<<<<<<< c0026bd07c671574bb78ceea8223d57d11805785
 
 
             var itemIndex = this.getIdOf(prodcuts[productId].name);
 
-=======
-            
-            var itemIndex = this.getIdOf(prodcuts[productId].name);
->>>>>>> fixed method defects
 
             if (itemIndex == -1)
                 productLineItems.push(new ProductLineItem(prodcuts[productId]))
@@ -56,10 +47,6 @@ var basket = (function () {
                 productLineItems[itemIndex].inventory++;
 
             prodcuts[productId].inventory--;
-<<<<<<< c0026bd07c671574bb78ceea8223d57d11805785
-=======
-            
->>>>>>> fixed method defects
             return true;
         },
 
@@ -75,19 +62,12 @@ var basket = (function () {
 
             if (productLineItems[itemIndex].inventory > 0)
                 productLineItems[itemIndex].inventory--;
-            else
-                return false;
-            
-            prodcuts[productId].inventory++;
-            
-            if(productLineItems[itemIndex].inventory==0)
-                productLineItems.splice(itemIndex,1); // delete obj from array
 
             return true;
 
         },
 
-        updateProductQuantity: function (productId, newQuantity) {
+        updateProductQuantity: function (productId, quantity) {
 
             if (!(productId in prodcuts))
                 return false;
@@ -96,28 +76,8 @@ var basket = (function () {
 
             if (itemIndex == -1)
                 return false;
-                
-            var actualQuantity=productLineItems[itemIndex].inventory;
-                
-            if(newQuantity==actualQuantity)
-                return false;
-            
-            productLineItems[itemIndex].inventory = newQuantity;
-           
-            var difference=newQuantity-actualQuantity;
-            
-            if(difference>0){ // if we're adding
-                if(difference>prodcuts[productId].inventory) // if we want to add more than available
-                    return false;
-                    
-                prodcuts[productId].inventory-=difference; 
-            }
-                
-            else
-                prodcuts[productId].inventory+=difference; // add them to "storage" array
-            
-            if(productLineItems[itemIndex].inventory==0) 
-                productLineItems.splice(itemIndex,1); // delete obj from array
+
+            productLineItems[itemIndex].inventory = quantity;
 
             return true;
         },
@@ -157,20 +117,10 @@ var basket = (function () {
 
 console.log("Adding 2.. " + basket.addProduct(2));
 console.log("Removing 2.. " + basket.removeProduct(2));
-<<<<<<< c0026bd07c671574bb78ceea8223d57d11805785
 console.log("Updating 2 quantity to 1.. " + basket.updateProductQuantity(2, 1));
 console.log("Trying to add unknown id.. " + basket.addProduct(228));
 console.log("Adding 0.. " + basket.addProduct(0));
 console.log("Trying to add 0 (the item is over).. " + basket.addProduct(0));
 console.log("\nTotal price.. " + basket.getTotalPrice());
 basket.ShowAllInfo();
-=======
-console.log("Attempt to delete 2 (the item is deleted).. " + basket.removeProduct(2));
-// client should use addProduct in this case:
-console.log("Attempt to update 2 (the item is deleted).. " + basket.updateProductQuantity(2, 1));
-console.log("Attempt to add unknown id.. " + basket.addProduct(228));
-console.log("Adding 0.. " + basket.addProduct(0));
-console.log("Attempt to add 0 (the item is over).. " + basket.addProduct(0));
-console.log("\nTotal price.. " + basket.getTotalPrice());
-basket.showAllInfo();
->>>>>>> fixed method defects
+
