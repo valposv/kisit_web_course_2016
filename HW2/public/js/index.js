@@ -51,7 +51,17 @@ $(function(){
 
 $(function(){
 	$(".js_place-order").on("click", function(){
-		socket.emit("placeOrder");
+		var products="";
+		var counter=1;
+		$('div[class^="product-line-items"] p').each(function(){
+    		products+=counter+". "+$(this).text()+"\n";
+			++counter;
+		});
+
+		var confirmed=confirm('Place this order?\n\n'+products);
+		
+		if(confirmed)
+			socket.emit("placeOrder");
 	});
 })
 
